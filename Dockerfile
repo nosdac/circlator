@@ -40,7 +40,7 @@ ENV PATH="${BUILD_DIR}/build/bwa-0.7.12:${BUILD_DIR}/build/canu-1.4/Linux-amd64/
 RUN   cd ${BUILD_DIR} && python3 setup.py install
 
 # Remove unnecessary softwares
-RUN apt autoremove -y git unzip wget
+#RUN apt autoremove -y git unzip wget
 
 # Final sanity check
 RUN   circlator progcheck
