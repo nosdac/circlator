@@ -36,6 +36,7 @@ RUN cd circlator && git reset --hard '3103d78299f8c4' && ./install_dependencies.
 
 # Set PATH
 ENV PATH="${BUILD_DIR}/build/bwa-0.7.12:${BUILD_DIR}/build/canu-1.4/Linux-amd64/bin/:${BUILD_DIR}/build/prodigal-2.6.2:${BUILD_DIR}/build/samtools-1.3:${BUILD_DIR}/build/MUMmer3.23:${BUILD_DIR}/build/SPAdes-3.7.1-Linux/bin:$PATH"
+ENV PYTHONPATH=/usr/local/lib/python3.7/dist-packages/pysam-0.15.3-py3.7-linux-x86_64.egg:/usr/lib/python37.zip:/usr/lib/python3.7:/usr/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/dist-packages:/usr/local/lib/python3.7/dist-packages/circlator-1.5.5-py3.7.egg:/usr/local/lib/python3.7/dist-packages/pymummer-0.11.0-py3.7.egg:/usr/local/lib/python3.7/dist-packages/pyfastaq-3.17.0-py3.7.egg:/usr/local/lib/python3.7/dist-packages/openpyxl-3.0.0-py3.7.egg:/usr/local/lib/python3.7/dist-packages/jdcal-1.4.1-py3.7.egg:/usr/local/lib/python3.7/dist-packages/et_xmlfile-1.0.1-py3.7.egg:/usr/lib/python3/dist-packages
 
 # Run the final installation
 RUN   cd ${BUILD_DIR} && python3 setup.py install
