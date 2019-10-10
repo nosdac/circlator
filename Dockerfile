@@ -33,12 +33,12 @@ ENV LC_ALL=C.UTF-8
 
 RUN   circlator progcheck
 
-CMD   echo "Usage:  docker run -v \`pwd\`:/var/data -it <IMAGE_NAME> bash" && \
-      echo "" && \
-      echo "This will place you in a shell with your current working directory accessible as /var/data." && \
-      echo "You can then run commands like:" && \
-      echo "   circlator all /var/data/assembly.fasta /var/data/reads /var/data/<output_subdirectory>" && \
-      echo "For help, please go to https://github.com/sanger-pathogens/circlator/wiki, or type" && \
-      echo "   circlator --help"
+#CMD   echo "Usage:  docker run -v \`pwd\`:/var/data -it <IMAGE_NAME> bash" && \
+#      echo "" && \
+#      echo "This will place you in a shell with your current working directory accessible as /var/data." && \
+#      echo "You can then run commands like:" && \
+#      echo "   circlator all /var/data/assembly.fasta /var/data/reads /var/data/<output_subdirectory>" && \
+#      echo "For help, please go to https://github.com/sanger-pathogens/circlator/wiki, or type" && \
+#      echo "   circlator --help"
 
 ENTRYPOINT ["circlator"]
