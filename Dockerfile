@@ -1,7 +1,18 @@
-# This container will install Circlator from master
-#
+#   ____ _          _       _             
+#  / ___(_)_ __ ___| | __ _| |_ ___  _ __ 
+# | |   | | '__/ __| |/ _` | __/ _ \| '__|
+# | |___| | | | (__| | (_| | || (_) | |   
+#  \____|_|_|  \___|_|\__,_|\__\___/|_|   
+#                                        
+# Circlator
+# Created by Björn Viklund
+# Contact: bjorn.viklund@uppmax.uu.se
+# https://github.com/sanger-pathogens/circlator
 FROM debian:testing-20190910
 
+# Set workdir and variables
+WORKDIR /opt 
+ENV LC_ALL=C.UTF-8
 ENV BUILD_DIR=/opt/circlator
 
 # Install the dependancies
@@ -14,31 +25,22 @@ RUN apt-get update -qq && apt-get install -y	\
                                                 python=2.7.16-1 \
                                                 unzip=6.0-25 \
                                                 wget=1.20.3-1+b1 \
-                                                zlib1g-dev=1:1.2.11.dfsg-1+b1 
+                                                zlib1g-dev=1:1.2.11.dfsg-1+b1 \
+                                                libcurl4=7.66.0-1 \
+                                                libcurl4-openssl-dev=7.66.0-1
 
-RUN   mkdir -p ${BUILD_DIR}
-ENV BUILD_DIR=/opt/circlator
-
-WORKDIR /opt 
+#Clone and install even more dependencies
 RUN git clone https://github.com/sanger-pathogens/circlator.git
 RUN cd circlator && git reset --hard '3103d78299f8c4' && ./install_dependencies.sh
-RUN echo "alias l='ls -l --color=always --group-directories-first'" >> ~/.bashrc
 
+# Set PATH
 ENV PATH="${BUILD_DIR}/build/bwa-0.7.12:${BUILD_DIR}/build/canu-1.4/Linux-amd64/bin/:${BUILD_DIR}/build/prodigal-2.6.2:${BUILD_DIR}/build/samtools-1.3:${BUILD_DIR}/build/MUMmer3.23:${BUILD_DIR}/build/SPAdes-3.7.1-Linux/bin:$PATH"
 
-RUN apt update -qq && apt install -y libcurl4=7.66.0-1 libcurl4-openssl-dev=7.66.0-1 
-
+#Run the final installation
 RUN   cd ${BUILD_DIR} && python3 setup.py install
-ENV LC_ALL=C.UTF-8
 
+#Final sanity check
 RUN   circlator progcheck
 
-#CMD   echo "Usage:  docker run -v \`pwd\`:/var/data -it <IMAGE_NAME> bash" && \
-#      echo "" && \
-#      echo "This will place you in a shell with your current working directory accessible as /var/data." && \
-#      echo "You can then run commands like:" && \
-#      echo "   circlator all /var/data/assembly.fasta /var/data/reads /var/data/<output_subdirectory>" && \
-#      echo "For help, please go to https://github.com/sanger-pathogens/circlator/wiki, or type" && \
-#      echo "   circlator --help"
 
 ENTRYPOINT ["circlator"]
