@@ -29,20 +29,20 @@ RUN apt-get update -qq && apt-get install -y	\
                                                 wget=1.20.3-1+b1 \
                                                 zlib1g-dev=1:1.2.11.dfsg-1+b1 
 
-#Clone and install even more dependencies
+# Clone and install even more dependencies
 RUN git clone https://github.com/sanger-pathogens/circlator.git
 RUN cd circlator && git reset --hard '3103d78299f8c4' && ./install_dependencies.sh
 
 # Set PATH
 ENV PATH="${BUILD_DIR}/build/bwa-0.7.12:${BUILD_DIR}/build/canu-1.4/Linux-amd64/bin/:${BUILD_DIR}/build/prodigal-2.6.2:${BUILD_DIR}/build/samtools-1.3:${BUILD_DIR}/build/MUMmer3.23:${BUILD_DIR}/build/SPAdes-3.7.1-Linux/bin:$PATH"
 
-#Run the final installation
+# Run the final installation
 RUN   cd ${BUILD_DIR} && python3 setup.py install
 
-#Remove unnecessary softwares
+# Remove unnecessary softwares
 RUN apt autoremove -y git unzip wget
 
-#Final sanity check
+# Final sanity check
 RUN   circlator progcheck
 
 
