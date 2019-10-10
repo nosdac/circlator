@@ -29,6 +29,7 @@ ENV PATH="${BUILD_DIR}/build/bwa-0.7.12:${BUILD_DIR}/build/canu-1.4/Linux-amd64/
 RUN apt update -qq && apt install -y libcurl4=7.66.0-1 libcurl4-openssl-dev=7.66.0-1 
 
 RUN   cd ${BUILD_DIR} && python3 setup.py install
+ENV LC_ALL=C.UTF-8
 
 RUN   circlator progcheck
 
