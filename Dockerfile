@@ -19,15 +19,15 @@ ENV BUILD_DIR=/opt/circlator
 RUN apt-get update -qq && apt-get install -y	\ 
                                                 git=1:2.23.0-1 \
                                                 libbz2-dev=1.0.8-2 \
+                                                libcurl4-openssl-dev=7.66.0-1 \
+                                                libcurl4=7.66.0-1 \
                                                 liblzma-dev=5.2.4-1+b1 \
                                                 libncurses5-dev=6.1+20190803-1 \
                                                 python3-pip=18.1-5 \
                                                 python=2.7.16-1 \
                                                 unzip=6.0-25 \
                                                 wget=1.20.3-1+b1 \
-                                                zlib1g-dev=1:1.2.11.dfsg-1+b1 \
-                                                libcurl4=7.66.0-1 \
-                                                libcurl4-openssl-dev=7.66.0-1
+                                                zlib1g-dev=1:1.2.11.dfsg-1+b1 
 
 #Clone and install even more dependencies
 RUN git clone https://github.com/sanger-pathogens/circlator.git
