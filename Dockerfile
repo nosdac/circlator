@@ -17,8 +17,8 @@ RUN apt-get update -qq && apt-get install -y	\
                                                 zlib1g-dev=1:1.2.11.dfsg-1+b1 
 
 RUN   mkdir -p ${BUILD_DIR}
-
 ENV BUILD_DIR=/opt/circlator
+
 WORKDIR /opt 
 RUN git clone https://github.com/sanger-pathogens/circlator.git
 RUN cd circlator && git reset --hard '3103d78299f8c4' && ./install_dependencies.sh
@@ -40,6 +40,5 @@ CMD   echo "Usage:  docker run -v \`pwd\`:/var/data -it <IMAGE_NAME> bash" && \
       echo "   circlator all /var/data/assembly.fasta /var/data/reads /var/data/<output_subdirectory>" && \
       echo "For help, please go to https://github.com/sanger-pathogens/circlator/wiki, or type" && \
       echo "   circlator --help"
-CMD circlator
 
 ENTRYPOINT ["circlator"]
