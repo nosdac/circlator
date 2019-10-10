@@ -42,7 +42,7 @@ RUN   cd ${BUILD_DIR} && python3 setup.py install
 
 # Remove unnecessary softwares
 RUN apt autoremove -y git unzip wget
-RUN apt update -qq && apt install libssl-dev=1.1.1d-1
+RUN apt update -qq && apt install -y libssl-dev=1.1.1d-1
 
 # Final sanity check
 RUN   circlator progcheck
